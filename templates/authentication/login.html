@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card-header">Login Page</div>
+      <div class="card-body">
+        <form method="POST">
+          {% csrf_token %} {% for field in form %}
+          <div class="form-group">{{ field.label_tag }} {{ field }}</div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div class="mt-3">
+          Don't have an account?
+          <a href="{% url 'register' %}">Register</a>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+  </body>
+</html>
