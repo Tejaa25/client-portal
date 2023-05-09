@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task List</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <h2>Hello {{request.user}}!!!</h2>
+      <ul class="navbar-nav ml-auto">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    <div class="container mt-5">
+      <h2>Task-List</h2>
+      <br />
+      {%if request.user.role == 'PM' %}
+      <a href="{% url 'assigned_task' %}">assigned task</a><br />
+      <a href="{% url 'unassigned_task' %}">unassigned task</a>
+      {%endif%} {%if request.user.role != 'PM' %}
+      <a href="{% url 'assigned_task' %}">Click here to see your tasks</a><br />
+      {%endif%}
+      <br />
+      <form method="GET">
+        <input
+          type="text"
+          name="search-area"
+          placeholder="search task"
+          value="{{search_input}}"
+        />
+        <input class="button" type="submit" value="search" />
+      </form>
+      <br />
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            {% comment %} specifies that the cell is the header for a column
+            {%endcomment %}
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>{{ task.task }}</td>
+            <td>
+              <a href="{% url 'taskdetail' task.id %}" class="btn btn-primary"
+                >View</a
+              >
+
+              {%if request.user.role == 'PM' or request.user.role == task.role%}
+              <a href="{% url 'taskupdate' task.id %}" class="btn btn-secondary"
+                >Edit</a
+              >
+              {%endif%} {%if request.user.role == 'PM'%}
+              <a href="{% url 'taskdelete' task.id %}" class="btn btn-danger"
+                >Delete</a
+              >
+              {%endif%}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {%if request.user.role == 'PM'%}
+      <a href="{% url 'taskcreate' %}" class="btn btn-success">Add Task</a>
+      {%endif%}
+    </div>
+    <nav class="navbar navbar-expand-lg">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_employee' %}"
+            >click here to add new employee</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
+
 # Create your models here.
 
 
@@ -15,4 +16,7 @@ class CustomUser(AbstractUser):
                     (UI_UX_DESIGNER, 'ui/ux designer'),
                     (SEARCH_ENGINE_OPTIMIZATION, 'SEO',)]
     role = models.CharField(
-        max_length=3, choices=role_choices)
+        max_length=3, choices=role_choices, default=PROJECT_MANAGER)
+    created_by = models.IntegerField(null=True)
+    forget_password_token = models.CharField(max_length=100)
+    # objects = CustomUserManager()

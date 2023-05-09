@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task List</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2>Un-Assigned Task</h2>
+      <br />
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            {% comment %} specifies that the cell is the header for a column
+            {%endcomment %}
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>{{ task.task }}</td>
+            <td>
+              <a href="{% url 'taskdetail' task.id %}" class="btn btn-primary"
+                >View</a
+              >
+              {% if request.user == task.assigned_to %}
+              <a href="{% url 'taskupdate' task.id %}" class="btn btn-secondary"
+                >Edit</a
+              >
+              {% endif %} {% if request.user.role == 'PM' %}
+              <a href="{% url 'taskupdate' task.id %}" class="btn btn-secondary"
+                >Edit</a
+              >
+              {% endif %} {%if request.user.role == 'PM'%}
+              <a href="{% url 'taskdelete' task.id %}" class="btn btn-danger"
+                >Delete</a
+              >
+              {%endif%}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'tasklist' %}">Go Back</a>
+    </div>
+  </body>
+</html>
