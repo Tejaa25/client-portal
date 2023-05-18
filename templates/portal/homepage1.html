@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+				initial-scale=1.0"
+    />
+    <title>Home page</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="responsive.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      :root {
+        --background-color1: #fafaff;
+        --background-color2: #ffffff;
+        --background-color3: #ededed;
+        --background-color4: #cad7fda4;
+        --primary-color: #4b49ac;
+        --secondary-color: #0c007d;
+        --Border-color: #3f0097;
+        --one-use-color: #3f0097;
+        --two-use-color: #5500cb;
+      }
+      body {
+        background-color: var(--background-color4);
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      header {
+        height: 70px;
+        width: 100vw;
+        padding: 0 30px;
+        background-color: var(--background-color1);
+        position: fixed;
+        z-index: 100;
+        box-shadow: 1px 1px 15px rgba(161, 182, 253, 0.825);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 27px;
+        font-weight: 600;
+        color: rgb(47, 141, 70);
+      }
+
+      .icn {
+        height: 30px;
+      }
+      .menuicn {
+        cursor: pointer;
+        margin-left:10px;
+      }
+      .searchbar,
+      .message,
+      .logosec {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .message {
+        gap: 40px;
+        position: relative;
+        cursor: pointer;
+      }
+      .main-container {
+        display: flex;
+        width: 100vw;
+        position: relative;
+        top: 70px;
+        z-index: 1;
+      }
+      .main {
+        height: calc(100vh - 70px);
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding: 40px 30px 30px 30px;
+      }
+
+      .box-container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 50px;
+      }
+      .nav {
+        min-height: 91vh;
+        width: 250px;
+        background-color: var(--background-color2);
+        position: absolute;
+        top: 0px;
+        left: 00;
+        box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 30px 0 20px 10px;
+      }
+      .navcontainer {
+        height: calc(100vh - 70px);
+        width: 250px;
+        position: relative;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        transition: all 0.5s ease-in-out;
+      }
+      .navcontainer::-webkit-scrollbar {
+        display: none;
+      }
+      .navclose {
+        width: 80px;
+      }
+      .nav-option {
+        width: 250px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 30px 0 20px;
+        gap: 20px;
+        transition: all 0.1s ease-in-out;
+      }
+      .nav-option:hover {
+        border-left: 5px solid #a2a2a2;
+        background-color: #dadada;
+        cursor: pointer;
+      }
+      .nav-img {
+        height: 30px;
+      }
+
+      .nav-upper-options {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .option1 {
+        border-left: 5px solid #010058af;
+        background-color: var(--Border-color);
+        color: white;
+        cursor: pointer;
+      }
+      .option1:hover {
+        border-left: 5px solid #010058af;
+        background-color: var(--Border-color);
+      }
+      .box {
+        height: 130px;
+        width: 230px;
+        border-radius: 20px;
+        box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+        background-color: var(--one-use-color);
+      }
+      .box:hover {
+        transform: scale(1.08);
+      }
+
+      
+      .box img {
+        height: 35px;
+      }
+      .box .text {
+        color: white;
+      }
+      .white-link{
+        color:white;
+        font-size: 20px;
+      } 
+      .topic {
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logosec">
+        <div class="logo">Client portal</div>
+        <img
+          src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+          class="icn menuicn"
+          id="menuicn"
+          alt="menu-icon"
+        />
+      </div>
+
+      <div class="message">
+        <h2>Hello {{request.user}}!!!</h2>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <div class="navcontainer">
+        <nav class="nav">
+          <div class="nav-upper-options">
+            <div class="nav-option option1">
+              <img
+                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+                class="nav-img"
+                alt="dashboard"
+              />
+              <h3>Dashboard</h3>
+            </div>
+            {%if request.user.role == 'AD' %}
+            <div class="option2 nav-option">
+              <img
+                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/9.png"
+                class="nav-img"
+                alt="articles"
+              /><a href="{% url 'add_employee' %}"><h3>Add emp</h3></a>
+            </div>
+            {%endif%}
+            {%if request.user.role == 'PM'%}
+            <div class="nav-option option5">
+              <img
+                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                class="nav-img"
+                alt="blog"
+              />
+              <a href="{% url 'taskcreate' %}"><h3>Add task</h3></a>
+            </div>
+            {%endif%}
+            <div class="nav-option logout">
+              <img
+                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
+                class="nav-img"
+                alt="logout"
+              />
+              <a  href="{% url 'logout' %}"><h3>Logout</h3></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="main">
+        <div class="box-container">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="box">
+                <div class="text">
+                  <h2 class="topic-heading">{{task_statistics.total_tasks}}</h2>
+                  <h2 class="topic"><a href="{% url 'tasklist' %}" class="white-link"
+                    >Total tasks</a></h2>
+                </div>
+                <img
+                  src="https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
+                  alt="comments"
+                />
+              </div>
+              <div class="box">
+                <div class="text">
+                  <h2 class="topic-heading">{{task_statistics.task_completed}}</h2>
+                  <h2 class="topic"><a href="{% url 'completed_task' %}" class="white-link"
+                    >completed</a></h2>
+                </div>
+                <img
+                  src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png"
+                  alt="published"
+                />
+              </div>
+          {%if request.user.role == 'PM'%}
+          <div class="box">
+            <div class="text">
+              <h2 class="topic-heading">{{task_statistics.assigned_task}}</h2>
+              <h2 class="topic"><a href="{% url 'assigned_task' %}" class="white-link"
+                >Assigned tasks</a></h2>
+            </div>
+            <img
+                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                alt="blog"
+              />
+          </div>
+          <div class="box">
+            <div class="text">
+              <h2 class="topic-heading">{{task_statistics.unassigned_task}}</h2>
+              <h2 class="topic"><a href="{% url 'unassigned_task' %}" class="white-link"
+                >Unassigned tasks</a></h2>
+            </div>
+            <img
+                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                alt="blog"
+              />
+          </div>
+          {%endif%}
+          {% comment %} {%if request.user.role == 'PM' %}
+          <div class="box">
+            <div class="text">
+              <h2 class="topic-heading">{{task_statistics.assigned_task}}</h2>
+              <h2 class="topic"><a href="{% url 'assigned_task' %}" class="white-link"
+                >My tasks</a></h2>
+            </div>
+            <img
+                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                alt="blog"
+              />
+          </div>
+          {%endif%} {% endcomment %}
+          {%if request.user.role != 'AD' %}
+          <div class="box">
+            <div class="text">
+              <h2 class="topic-heading">{{task_statistics.task_pending}}</h2>
+              <h2 class="topic"><a href="{% url 'pending_task' %}" class="white-link"
+                >Pending</a></h2>
+            </div>
+            <img
+            src="data:image/png;base64,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"
+                   alt="pending"
+                />
+            
+          </div>
+          {%endif%}
+          {%if request.user.role == 'AD'%}
+          <div class="box">
+            <div class="text">
+              <h2 class="topic-heading">{{total}}</h2>
+              <h2 class="topic"><a href="{% url 'employees' %}" class="white-link"
+                >Total employees</a></h2>
+            </div>
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfINnrVkG2wxjriO1PiWE2u4SqsQznWeI_0Q&usqp=CAU"
+                alt="blog"
+              />
+          </div>
+          {%endif%}
+        </div>  
+    <script src="./index.js"></script>
+  </body>
+</html>

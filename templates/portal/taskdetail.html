@@ -9,9 +9,18 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     />
+    <style>
+      .box-container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 50px;
+      }
+    </style>
   </head>
   <body>
-    <div class="container mt-5">
+    <div class="box-container">
       <h2>task detail : {{task.task_detail}}</h2>
       <br />
       <a href="{% url 'tasklist' %}" class="btn btn-secondary">Go Back</a>

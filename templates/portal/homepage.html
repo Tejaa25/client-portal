@@ -1,12 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
+    <title>Task List</title>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .navbar-nav.ml-auto {
+        margin-left: auto !important;
+      }
+    </style>
   </head>
   <body>
-    <p>HEllo</p>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <h2>Hello {{request.user}}!!!</h2>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        {% if request.user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          {%if request.user.role == 'AD'%}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'assigned_task' %}"
+              >Assigned Task</a
+            >
+          </li>
+          {{task_statistics.assigned_task}}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'unassigned_task' %}"
+              >Unassigned Task</a
+            >
+          </li>
+
+          {{task_statistics.unassigned_task}}
+          {%endif%} {%if request.user.role == 'PM' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'assigned_task' %}"
+              >My tasks</a
+            >
+          </li>
+          {{task_statistics.assigned_task}}
+          {%endif%}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tasklist' %}"
+              >Total tasks</a
+            >
+          </li>
+          {{task_statistics.total_tasks}}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'completed_task' %}"
+              >Completed tasks</a
+            >
+          </li>
+          {{task_statistics.task_completed}}
+          {%if request.user.role != 'AD' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'pending_task' %}"
+              >Pending</a
+            >
+          </li>
+          {{task_statistics.task_pending}}
+          {%endif%}
+          <li class="nav-item">
+            <a class="btn btn-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+      {%if request.user.role == 'AD' or request.user.role == 'PM' %}
+      <a href="{% url 'taskcreate' %}" class="btn btn-success">Add Task</a>
+      {%endif%}
+    {%if request.user.role == 'AD' %}
+    <nav class="navbar navbar-expand-lg">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="{% url 'add_employee' %}" class="btn btn-primary"
+            >click here to add new employee</a
+          >
+        </li>
+      </ul>
+    </nav>
+    {%endif%}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   </body>
 </html>

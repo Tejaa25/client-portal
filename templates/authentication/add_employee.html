@@ -4,12 +4,142 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forgot-password</title>
+    <title>Add employee</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      :root {
+        --background-color1: #fafaff;
+        --background-color2: #ffffff;
+        --background-color3: #ededed;
+        --background-color4: #cad7fda4;
+        --primary-color: #4b49ac;
+        --secondary-color: #0c007d;
+        --Border-color: #3f0097;
+        --one-use-color: #3f0097;
+        --two-use-color: #5500cb;
+      }
+      body {
+        background-color: var(--background-color4);
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      header {
+        height: 70px;
+        width: 100vw;
+        padding: 0 30px;
+        background-color: var(--background-color1);
+        position: top;
+        z-index: 100;
+        box-shadow: 1px 1px 15px rgba(161, 182, 253, 0.825);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 27px;
+        font-weight: 600;
+        color: rgb(47, 141, 70);
+      }
+
+      .icn {
+        height: 30px;
+      }
+      .menuicn {
+        cursor: pointer;
+      }
+      .searchbar,
+      .message,
+      .logosec {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .message {
+        gap: 40px;
+        position: relative;
+        cursor: pointer;
+      }
+      .main-container {
+        display: flex;
+        width: 100vw;
+        position: relative;
+        top: 70px;
+        z-index: 1;
+      }
+      .main {
+        height: calc(100vh - 70px);
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding: 40px 30px 30px 30px;
+      }
+
+      .box-container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 50px;
+      }
+      .box {
+        height: 130px;
+        width: 230px;
+        border-radius: 20px;
+        box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+      }
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        margin-top: 100px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 20px;
+      }
+      .card-header {
+        font-size: 24px;
+        text-align: center;
+        background: skyblue;
+      }
+      .card-body {
+        margin-top: 20px;
+      }
+    </style>
   </head>
+
   <body>
     <div class="container">
       <div class="card-header">Add a new employee</div>
@@ -17,9 +147,17 @@
         <form method="POST">
           {% csrf_token %} {% for field in form %}
           <div class="form-group">{{ field.label_tag }} {{ field }}</div>
-          {% endfor %}
+          {% if field.errors %}
+          <ul class="errorlist">
+            {% for error in field.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %} {% endfor %}
           <button type="submit" class="btn btn-primary">verify</button>
         </form>
+        <br />
+        <a href="{% url 'home' %}">Go Back</a>
       </div>
     </div>
   </body>

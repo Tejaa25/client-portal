@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Task List</title>
+    <title>emp List</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -221,79 +221,33 @@
       </ul>
     {% endif %}
     <div class="container mt-5">
-      <h2>Task-List</h2>
+      <h2>Employee-List</h2>
       <br />
-      <form method="GET" class="form-inline my-2 my-lg-0">
-        <input
-        class="form-control mr-sm-2"
-          type="text"
-          name="search-area"
-          placeholder="search task"
-          value="{{search_input}}"
-        />
-        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="search" />
-      </form>
-      {% comment %} <form method="GET" class="form-inline my-2 my-lg-2">
-        <select name="role-filter" style="margin-right: 10px;">
-          <option value="">Select role</option>
-          <option value="FD">front-end dev</option>
-          <option  value="BD">back-end dev</option>
-          <option  value="SEO">SEO</option>
-          <option  value="UD">Ui/Ux designer</option>
-        </select>
-        <input class="btn btn-link" type="submit" value="Apply" />
-      </form> {% endcomment %}
+      
       <br />
       <div class ="container mt-5">
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Task</th>
+            <th scope="col">Employee</th>
             {% comment %} specifies that the cell is the header for a column
             {%endcomment %}
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          {% for task in tasks %}
+          {% for emp in employees %}
           <tr>
-            <td>{{ task.task }}</td>
-            <td>
-              <a href="{% url 'taskdetail' task.id %}" class="btn btn-primary"
-                >View</a
+            <td>{{ emp.username }}</td>
+            <td> <a href="{% url 'employeedelete' emp.id %}" class="btn btn-danger"
+                >remove</a
               >
-              {% if request.user == task.assigned_to %}
-              <a href="{% url 'taskupdate' task.id %}" class="btn btn-secondary"
-                >Mark as completed</a
-              >
-              {% endif %} {% if request.user.role == 'AD' %}
-              <a
-                href="{% url 'taskupdate' task.id %}"
-                class="btn btn-secondary"
-                >Edit</a
-              >
-              {% endif %} 
-              {% if task.user == request.user and request.user.role != 'AD' %}
-              <a
-                href="{% url 'taskupdate' task.id %}"
-                class="btn btn-secondary"
-                >Edit</a
-              >
-              {% endif %}
-              {%if request.user.role == 'AD' or request.user.role == 'PM'%}
-              <a href="{% url 'taskdelete' task.id %}" class="btn btn-danger"
-                >Delete</a
-              >
-              {%endif%}
             </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
-      {%if request.user.role == 'PM'%}
-      <a href="{% url 'taskcreate' %}" class="btn btn-success">Add Task</a>
-      {%endif%}
     </div>
     <a href="{% url 'home' %}" class="btn btn-link">Go back</a>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

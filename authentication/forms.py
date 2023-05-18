@@ -21,7 +21,8 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class ForgetPasswordForm(forms.Form):
-    username = forms.CharField(min_length=4)
+    email = forms.EmailField(
+        max_length=254, required=True, help_text='Enter your valid email address')
 
 
 class ChangePasswordForm(forms.Form):
@@ -38,10 +39,29 @@ class ChangePasswordForm(forms.Form):
                                 help_text="Enter the same password as before, for verification.",)
 
 
+class SetPasswordForm(forms.Form):
+    username = forms.CharField(min_length=4)
+    first_name = forms.CharField(
+        max_length=20, required=True, help_text='Required...')
+    last_name = forms.CharField(
+        max_length=20, required=True, help_text='Required...')
+    password1 = forms.CharField(min_length=8,
+                                label="Password",
+                                widget=forms.PasswordInput,
+                                strip=False,
+                                help_text="Enter a strong password.",
+                                )
+    password2 = forms.CharField(min_length=8,
+                                label="Password confirmation",
+                                strip=False,
+                                widget=forms.PasswordInput,
+                                help_text="Enter the same password as before, for verification.",)
+
+
 class AddEmployeeForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'role')
+        fields = ('email', 'role')
 
 # class CustomUserCreationForm(forms.ModelForm):
 #     username = forms.CharField(min_length=4)

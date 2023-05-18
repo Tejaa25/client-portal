@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import CustomLoginView, RegisterPage, CustomLogoutView, ForgotPasswordView, ChangePasswordView, AddEmployeeView, SetPasswordView
 from django.contrib.auth import views as auth_views
+from portal.views import EmployeeList, EmployeeDelete
 # Create your tests here.
 
 urlpatterns = [
@@ -18,7 +19,9 @@ urlpatterns = [
          ChangePasswordView.as_view(), name="change_password"),
     path('set_password/<str:token>/',
          SetPasswordView.as_view(), name="set_password"),
-    path('addemployee/', AddEmployeeView.as_view(), name="add_employee")
-
+    path('addemployee/', AddEmployeeView.as_view(), name="add_employee"),
+    path('employees/', EmployeeList.as_view(), name="employees"),
+    path('employeedelete/<int:pk>/',
+         EmployeeDelete.as_view(), name='employeedelete'),
     # path('change_password/<token>/', change_password)
 ]
